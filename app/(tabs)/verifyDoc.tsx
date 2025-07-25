@@ -2,7 +2,7 @@ import {
     Feather, // Using Feather as it has similar icons to FiUpload, FiCamera, etc.
 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Camera, CameraView } from "expo-camera/next";
+import { Camera, CameraView } from "expo-camera";
 import * as ImagePicker from 'expo-image-picker';
 import * as Linking from 'expo-linking';
 import React, { useEffect, useRef, useState } from 'react';
@@ -172,28 +172,7 @@ const VerifyDocScreen: React.FC = () => {
         if (!result.canceled && result.assets && result.assets.length > 0) {
             const selectedImage = result.assets[0];
             if (selectedImage.base64) {
-                // jsQR needs an ImageData object. We need to create it from base64.
-                // This is complex in React Native as there's no native Canvas API like web.
-                // A common approach is to use a library that handles image processing,
-                // or a native module to get raw pixel data.
-                // For simplicity, let's assume we can get pixel data (which is not directly from ImagePicker base64).
-                // A more robust solution might involve:
-                // 1. Using a canvas library for RN (e.g., 'expo-gl' with 'gl-react-native') to draw the image and then read pixels.
-                // 2. Sending the base64 to a backend that can decode QR codes.
-                // 3. Using a specialized RN image processing library to get raw pixel data.
-
-                // Placeholder for actual image data processing for jsQR:
-                // In a real app, you would likely need a more complex setup to get
-                // ImageData.data, width, height from a base64 image in React Native.
-                // For demonstration, let's simulate a success or provide a warning.
-
-                // Example: If we could get pixel data as Uint8ClampedArray
-                // const pixelData = new Uint8ClampedArray(base64Decode(selectedImage.base64));
-                // const code = jsQR(pixelData, selectedImage.width, selectedImage.height);
-
-                // Given the constraints, directly applying jsQR to base64 from ImagePicker isn't straightforward.
-                // We will simulate it or log the limitation.
-                Alert.alert(
+                    Alert.alert(
                     'Image QR Scan Limitation',
                     'Direct image scanning with jsQR from picked images is complex in React Native without pixel data access. This feature needs a more advanced image processing setup (e.g., a native canvas module or sending to a server for processing). Simulating a generic result for now.'
                 );
